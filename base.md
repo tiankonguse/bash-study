@@ -1,50 +1,95 @@
+# 基础 shell 编程 
 
-shell 的任务是将用户的命令翻译成系统指令。
+## shell 脚本和函数
 
-判断使用的shell的版本:
+一个脚本，就是包含 shell 命令的文件。
+一个脚本，就是一个 shell 程序。
+.bash\_profile 和 环境文件 就是 shell 脚本。
+运行脚本可以是 source scriptname ，也可以直接是脚本的名字。
+使用 source 的方式执行脚本时，在当前 shell 执行。
+只有当脚本所在目录在命令搜索路径中或.目录在命令搜索路径中时，才可以通过键入脚本来运行脚本。
+在通过名字调用 shell 脚本前，脚本还需要有可执行权限。
+使用 chmod +x scriptname 来提升权限
+使用名字时， shell 创建了一个 子进程(子 shell)，在子进程中运行的。
 
-````
-tiankonguse@tiankonguse-PC:~$ echo $SHELL
-/bin/bash
-````
-查看 bash 在系统上的位置
+### 函数
 
+函数是一种脚本内脚本。
 
-````
-tiankonguse@tiankonguse-PC:~$ whereis bash
-bash: /bin/bash /etc/bash.bashrc /usr/share/man/man1/bash.1.gz
-````
-或
+定义 函数可以加 function 也可以不加.
+使用 unset -f functionname 删除一个函数。
+运行函数，只需要输入函数名，后跟任意参数即可。
+如果一个函数与一个脚本或可执行程序有相同的名字，则函数优先。
 
+名字的优先级
+别名 > 关键字 > 函数 > 内置命令 > 脚本和可执行程序
 
-````
-tiankonguse@tiankonguse-PC:~$ which bash
-/bin/bash
-````
-或者
+type 可以搜索命令的精确源。
 
+## shell 变量
 
-````
-tiankonguse@tiankonguse-PC:~$ grep bash /etc/passwd | awk -F: '{print $7}' | sort -u
-/bin/bash
-````
+变量被命名用以储存数据，通常格式为字符串，其值可使用$符号加名字获得。
 
-将 bash 设置为登录的默认shell
+### 位置参数
 
-````
-tiankonguse@tiankonguse-PC:~$ chsh
-Password: 
-Changing the login shell for tiankonguse
-Enter the new value, or press ENTER for the default Login Shell \[/bin/bash]: /bin/bash
-````
-或者
+可以使用格式 varname=value 的语句定义变量值。
+特定内置变量称为位置参数。
+当脚本被调用时，它们保存脚本的命令行参数。
+位置参数名为1，2，3等，其值有$1,$1,$3表示。
+还有一个位置参数0，其值为脚本名。
 
-````
-tiankonguse@tiankonguse-PC:~$ chsh -s /bin/bash
-Password:
-````
+两个特殊变量包含了所有的位置参数(除了位置参数0):\*和@。
 
+"$\*" 是包含所有参数位置的单一字符串，有环境变量 IFS 中地一个字符分隔.
+IFS 默认为空格，TAB 和 NEWLINE。
 
+"$@" 等价与 "$1""$2"..."$N",N为位置参数数目，等价于N个单独的由空格分隔的双引号字符串。
+如果没有位置参数，"$@" 扩展为空。
+
+变量#保存位置参数的数目(作为一个字符串)。
+
+#### 函数内的位置参数
+
+shell 函数使用位置参数和特殊变量。
+位置参数对函数是局部变量。
+在函数内定义的变量也是全局变量。
+
+### 函数内局部变量 
+
+函数定义中的 local语句使所涉及的变量均为函数的局部变量。
+
+### 对 $@ 和 $\* 进行引用
+
+1.为什么元素 "$\*" 用 IFS 的第一个字符而不是用空格分隔呢？
+    为了输出的灵活性。
+
+2.为什么 "$@" 用N个独立的双引号引用字符串？
+    允许你再次分别使用它们。
+
+### 变量语法详解
+
+取一个变量的值的 $varname 的语法实际上是常用语法 ${varname} 的简化形式。
+这样可以处理 $10 等位置参数，也可以区分变量与后面的字符串。
+
+## 字符串操作符
+
+大括号语法允许使用 shell 的字符串操作符。
+
+字符串操作符可以做的事
+
+* 确保变量存在
+* 设置变量的默认值
+* 捕捉未设置变量导致的错误
+* 删除匹配模式的变量的值部分内容
+
+### 字符串操作符语法
+
+字符串操作符的基本思想是将表示操作的特殊字符插入到变量名和右边的大括号之间。
+第一组字符串处理操作符用来测试变量的存在性以及允许在一定条件下对默认值进行替换。
+
+${varname:-word} 如果 varname 存在且非 null,返回其值，否则返回 word.
+${varname:=word} 如果 varname 存在且非 null, 返回其值，否则将其设置为 word ,然后返回其值。位置参数和特殊参数不能这样设置。
+${varname:?message} 如果 varname 存在
 
 
 

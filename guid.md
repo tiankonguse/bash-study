@@ -1,13 +1,13 @@
 
 shell 的任务是将用户的命令翻译成系统指令。
 
-判断使用的shell的版本:
+### 判断使用的shell的版本:
 
 ````
 tiankonguse@tiankonguse-PC:~$ echo $SHELL
 /bin/bash
 ````
-查看 bash 在系统上的位置
+### 查看 bash 在系统上的位置
 
 
 ````
@@ -29,7 +29,7 @@ tiankonguse@tiankonguse-PC:~$ grep bash /etc/passwd | awk -F: '{print $7}' | sor
 /bin/bash
 ````
 
-将 bash 设置为登录的默认shell
+### 将 bash 设置为登录的默认shell
 
 ````
 tiankonguse@tiankonguse-PC:~$ chsh

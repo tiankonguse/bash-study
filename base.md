@@ -87,9 +87,38 @@ shell 函数使用位置参数和特殊变量。
 字符串操作符的基本思想是将表示操作的特殊字符插入到变量名和右边的大括号之间。
 第一组字符串处理操作符用来测试变量的存在性以及允许在一定条件下对默认值进行替换。
 
-${varname:-word} 如果 varname 存在且非 null,返回其值，否则返回 word.
-${varname:=word} 如果 varname 存在且非 null, 返回其值，否则将其设置为 word ,然后返回其值。位置参数和特殊参数不能这样设置。
-${varname:?message} 如果 varname 存在
+* ${varname:-word} 如果 varname 存在且非 null,返回其值，否则返回 word.
+* ${varname:=word} 如果 varname 存在且非 null, 返回其值，否则将其设置为 word ,然后返回其值。位置参数和特殊参数不能这样设置。
+* ${varname:?message} 如果 varname 存在且非null,返回其值，否则打印varname后跟信息message,并退出当前命令或脚本。省略message则产生默认信息 parameter null or not set.
+* ${varname:+word} 如果varname 存在且非null,返回word,否则返回null。测试一个变量的存在行。
+* ${varname:offset:length} 返回 $varname 从 offset 开始，长度为 length 的子字符串。 length 可以省略。如果varname为@，length则为从参数offset开始的位置参数的数目。 
+
+
+### 模式和模式匹配
+
+* ${variable#pattern} 如果模式匹配变量取值的开头，删除最短的匹配部分，并返回其余部分。
+* ${variable##pattern} 如果模式匹配开头，删除最长的匹配部分，并返回其余部分。
+* ${variable%pattern} 如果模式匹配结尾，删除最短匹配部分，返回其余部分。
+* ${variable%%pattern} 如果模式匹配结尾，删除最长匹配部分，返回其余部分。
+* ${variable/pattern/string} 将第一个匹配的部分替换为string.
+* ${variable//pattern/string} 将所有匹配的部分替换为string.模式可以以#,%开头.
+
+### 长度操作符
+
+${#varname} 返回变量字符串的长度
+
+### 命令替换
+
+#### 语法
+
+$(unix command)
+
+#### 描述
+
+运行圆括号内的命令，该命令写到标准输出的内容返回作为表达式。
+该结构可以被嵌套。
+
+
 
 
 

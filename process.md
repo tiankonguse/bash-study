@@ -48,7 +48,7 @@ exit N 退出整个脚本
 
 ### 条件测试
 
-shell 使用\[] 结构提供了测试各种条件的方式。
+shell 使用\[] 结构提供了测试各种条件的方式,称为test测试。
 
 可以使用该结构检验一个文件的各种属性(是否存在，文件类型，权限和所有者)，或比较两个文件那个更新，以及对字符串进行比较。
 
@@ -64,4 +64,93 @@ shell 使用\[] 结构提供了测试各种条件的方式。
 * -z str 为null,长度为0
 
 分号是 shell 的标准语句分隔字符。
+
+
+#### 文件属性检查
+
+* -d file file存在并且为一个目录
+* -e file file存在
+* -f file file存在并且为一个正规文件
+* -r file 对 file 有读权限
+* -s file 文件存在且非空
+* -w file 对 file 有写权限
+* -x file 对file有可执行权限，如果为目录，则有目录搜索权限
+* -O file 你是file的所有者
+* -G file file的组ID匹配你的ID
+* file1 -nt file2 file1比file2新
+* file1 -ot file2 file1比file2旧
+
+-a 和 -o 操作符类似于退出状态时所用的 && 和 ｜｜ 操作符。只有在test条件表达式内可用。
+
+#### 整数条件
+
+* -lt 小于
+* -le 小于等于
+* -eq 等于
+* -ge 大于等于
+* -gt 大于
+* -ne 不等于
+
+
+## for
+
+````
+for name \[in list]
+do
+    statement
+done
+````
+
+in list 默认为 $@.
+
+command 是 shell 内置命令，它屏蔽函数和别名查找。
+
+## case
+
+类似与 switch语句。
+
+````
+case expression in
+    pattern1)
+        statements;;
+    pattern12)
+        statements;;
+esac
+````
+
+## select
+
+
+````
+select WORD \[in LIST]; 
+do
+    RESPECTIVE-COMMANDS; 
+done
+````
+
+## while 和 until
+
+### while 语法
+
+````
+while condition
+do
+    statements;;
+done
+````
+
+
+### until 语法
+
+````
+until command; do
+    statements;;
+done
+````
+
+
+
+
+
+
 

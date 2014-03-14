@@ -13,6 +13,7 @@
 
 ## 目录
 
+*  [入门简介](<introduction.md>)
 *  [函数与字符串](<base.md>)
 *  [shell环境编辑介绍](<edite.md>)
 *  [shell环境查看与配置](<guid.md>)

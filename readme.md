@@ -21,4 +21,6 @@
 *  [shell 常见命令含义](<command.md>)
 *  [shell 配置文件](<env.md>)
 *  [shell 流程控制简介](<process.md>)
-
+*  [awk 学习笔记](awk.md)
+*  [windows bat 学习笔记](bat.md)
+*  [python 学习笔记](python.md)

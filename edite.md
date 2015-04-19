@@ -79,6 +79,8 @@
 
 ## vi 编辑模式
 
+关于 vi 的详细命令,可以参考 [VIM 使用笔记](https://github.com/tiankonguse/VIM-study)  
+
 * DEL 删除前面的字符
 * CTRL-W 删除前面的单词
 * CTRL-V 引用下一个字符

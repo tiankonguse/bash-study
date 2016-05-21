@@ -86,5 +86,67 @@ cat input | sed    '2,2'd #删除偶数行
 cat input | sed   '5,7 s/^/\t/' #5至7行缩进
 ```
 
+
+## 实践
+
+### 批量复制文件并修改后缀
+
+
+这个问题的关键步骤是: 获得文件列表, 提取前缀, 一个一个copy. 
+
+
+1. rename命令  
+
+最简单的方式应该是复制到其他地方, 然后使用 [rename][] 命令.  
+
+```
+cp *.html ./test/;
+cd test;
+rename .html .php *.html
+cp *.php ../;
+```
+
+
+2. xargs命令
+
+直接复制并重名名, 这就需要使用 xargs 命令了.  
+ 
+
+```
+ls -1 *.html | sed "s/.html//" | xargs -i cp {}.html {}.php
+```
+
+3. 循环
+
+当然我们也可以使用循环一个一个重命名.  
+
+```
+find *.html  | while read i
+do
+    preFile=`echo "$i" | sed "s/.html//"`
+    cp $preFile.html $preFile.php
+done
+```
+
+
+### 文件批量增加内容
+
+这里我希望在所有文件的前面追加一行内容.  
+
+
+```
+find *.html  | while read i
+do
+    preFile=`echo "$i" | sed "s/.html//"`
+    cat $preFile.html | sed "1 i \<?php require_once(\"./check_login.php\"); ?>" > $preFile.php
+done
+```
+
+
+
+
+
+
+
 参考资料  [sed 学习笔记](http://tiankonguse.com/record/record.php?id=638)
 

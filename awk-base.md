@@ -116,6 +116,48 @@ awk -F/ '{printf "%s-%s-%s\n",$1,$2,$3}'  date
 2014-03-29
 ```
 
+
+## 转义
+
+一般字符在双引号之内就可以直接原样输出了.  
+但是有部分转义字符, 需要使用反斜杠转义才能正常输出.  
+
+```
+\\   A literal backslash.
+\a   The “alert” character; usually the ASCII BEL character.
+\b   backspace.
+\f   form-feed.
+\n   newline.
+\r   carriage return.
+\t   horizontal tab.
+\v   vertical tab.
+\xhex digits
+\c   The literal character c.
+```
+
+### 单引号
+
+当需要输出单引号时, 直接转义发现会报错.  
+由于awk脚本并不是直接执行, 而是会先进行预处理, 所以需要两次转义.  
+awk支持递归引号. 单引号内可以输出转义的单引号, 双引号内可以输出转义的双引号.  
+
+比如需要输出单引号, 则需要下面这样:  
+
+```
+> awk 'BEGIN{print "\""}'
+"
+>  awk 'BEGIN{print "'\''"}'
+'
+```
+
+当然, 更简单的方式是使用十六进制来输出.  
+
+```
+awk 'BEGIN{print "\x27"}'
+```
+
+
+
 ## 参考资料
 
 * [gawk的手册 ](http://www.gnu.org/software/gawk/manual/gawk.html)

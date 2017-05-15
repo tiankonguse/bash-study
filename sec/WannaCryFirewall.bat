@@ -17,5 +17,10 @@ netsh advfirewall firewall add rule name="Deny WannaCry port" dir=in action=bloc
 ECHO close 445,137,138,139 port
 
 
+net stop netbt
+net stop srv
+net stop rdr
+net stop langmanserver
+
 PAUSE
 

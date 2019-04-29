@@ -89,6 +89,21 @@ cat input | sed   '5,7 s/^/\t/' #5至7行缩进
 
 ## 实践
 
+### 修改替换文件的内容  
+
+理论知识：  
+`-i` 参数用于修改文件。  
+`s///` 用于替换内容  
+
+
+```
+for f in $(grep -r -l "../../suanfa_xiaomiquan.jpg" .)
+do
+    sed -i 's/..\/..\/suanfa_xiaomiquan.jpg/\/images\/suanfa_xiaomiquan.jpg/' $f
+done
+```
+
+
 ### 批量复制文件并修改后缀
 
 

@@ -199,7 +199,11 @@ awk 'BEGIN{ id=1177;out="" } { out=out"+"id; id++ } END{ print out }'
 ```
 
 
+## leetcode 题目处理
 
+```
+cat all.json | sed 's/"stat"/\n/g' | grep -E "question__title_slug"  | sed 's/^.*"question__title_slug": "\([^"]\+\)".*"frontend_question_id": \([0-9]\+\).*$/\1 \2/'
+```
 
 
 参考资料  [sed 学习笔记](http://tiankonguse.com/record/record.php?id=638)

@@ -51,6 +51,48 @@ lastarg=${!#}
 * 当前行号 `LINENO`
 
 
+## 数组使用
+
+```
+#定义数组
+declare -a names
+
+#给数组赋值
+names[0]="tiankonguse"
+names[1]="shen1000"
+
+#获取长度
+echo ${#names[@]}
+
+#遍历数组
+for i in ${!names[@]}
+do
+    echo "$i : ${names[$i]}"
+done
+```
+
+
+## 对象map使用
+
+
+```
+#定义对象
+declare -A namemap
+
+#给对象赋值
+namemap["tiankonguse"]="hello"
+namemap["shen1000"]="word"
+
+#得到长度
+echo ${#namemap[@]}
+
+#遍历对象
+for i in ${!namemap[@]}
+do
+    echo "$i : ${namemap[$i]}"
+done
+```
+
 
 ## 注意事项
 

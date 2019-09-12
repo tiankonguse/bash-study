@@ -26,3 +26,28 @@
 *  [awk 学习笔记](awk.md)
 *  [windows bat 学习笔记](bat.md)
 *  [python 学习笔记](python.md)
+
+
+## 实战
+
+
+### 1、批量替换指定文件的指定内容
+
+
+涉及知识点：[基础语法](introduction.md)、[grep 数据搜索](grep.md)、[awk 数据提取](awk.md)、[sed 数据修改](sed.md)。  
+
+
+```
+# 当然， grep 可以直接得到文件名的，这里作为演戏，先得到默认的匹配内容，然后使用awk处理得到文件名
+
+for l in $(grep -r res.tiankonguse . | grep "res.tiankonguse.com/images/2019/0[1-8]")
+do
+    f=$(echo $l | awk -F: '{print $1}')
+    echo "begin replease $f"
+    sed -i 's/res.tiankonguse.com/res2019.tiankonguse.com/' $f
+done
+```
+
+
+
+

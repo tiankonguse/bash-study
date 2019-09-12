@@ -24,8 +24,8 @@ log()
  
 report()
 {
-    report_ip="10.130.25.170:8080"
-    url_head="http://$report_ip/cgi-bin/s.fcg?dataId=1000023&"
+    report_ip="127.0.0.1:8080"
+    url_head="http://$report_ip/coredump?"
     response_file="$cur_path/../log/response.tmp"
     wget_options="-T 5 -t 1 -O $response_file"
  
@@ -35,7 +35,7 @@ report()
 function get_process_name_from_core()
 {
     local cn="$1"
-    echo "$cn" | grep -i -q -E 'container|qzhttp|qzmonitor'
+    echo "$cn" | grep -i -q -E 'container|php|nginx'
     if [ $? -ne 0 ];then return 1; fi
     ls -l "$cn" | awk '{print $3}' | grep -q "root"
     if [ $? -eq 0 ];then return 1; fi
@@ -45,7 +45,7 @@ function get_process_name_from_core()
     strings $tmp_core > /tmp/strings_in_core_tmp
     rm -f $tmp_core > /dev/null 2>&1
  
-    local kn=`cat /tmp/strings_in_core_tmp | grep -nwE "container|qzhttp" | awk -F":" '{print $1}'`
+    local kn=`cat /tmp/strings_in_core_tmp | grep -nwE "container" | awk -F":" '{print $1}'`
     if [ "x$kn" != "x" ];then
         (( kn=$kn+1 ))
         p=`cat /tmp/strings_in_core_tmp | head -n $kn | tail -n 1` 

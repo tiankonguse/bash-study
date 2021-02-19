@@ -46,6 +46,11 @@ do
     echo "begin replease $f"
     sed -i 's/res.tiankonguse.com/res2019.tiankonguse.com/' $f
 done
+
+Mac： sed -i "" 's/res.tiankonguse.com/res2020.tiankonguse.com/' $f
+linux： sed -i 's/res.tiankonguse.com/res2020.tiankonguse.com/' $f
+
+
 ```
 
 

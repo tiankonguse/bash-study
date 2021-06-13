@@ -31,6 +31,87 @@
 ## 快捷笔记
 
 
+
+### seq 生成序列
+
+语法：`seq 首数 [增量] 末数`
+
+```
+# 输出奇数
+seq 1 2 10
+```
+
+
+### 循环 for
+
+
+```
+for ((i = 0; i < 10; i++)); do echo $i; done
+
+for x (1 2 3); do echo $x; done
+for x in 1 2 3; do echo $x; done
+
+d=(1 2 3)   
+for x in $d; do print $x; done
+for x ($d); do print $x; done
+
+for i in {1..10}; do print $i; done
+for x ({1..10}); do print $x; done
+
+for i in {1..10..2}; do print $i; done
+for x ({2..10..2}); do print $x; done
+
+for x ("("{0..4..2}","{a..c}")"); do print $x; done
+```
+
+
+### ssh 免密登陆
+
+
+1、 本地生成密钥
+
+
+```
+ssh-keygen -t rsa -C "email@xxx.com"
+ssh-add ~/.ssh/id_rsa
+```
+
+
+2、本地配置免密登陆  
+
+打开配置文件：`~/.ssh/config`  
+
+
+配置下面的内容
+
+
+```
+Host remote
+HostName 192.168.0.1
+User tiankonguse
+Port 22
+ServerAliveInterval 10
+ControlMaster auto
+IdentityFile ~/.ssh/id_rsa
+```
+
+设置权限：`chmod 600 ~/.ssh/config`
+
+
+3、远程主机配置
+
+将`~/.ssh/id_rsa.pub` 上传到远程主机。
+
+执行：`cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys`
+
+
+4、本地测试免密登陆
+
+```
+ssh tiankonguse@192.168.0.1
+```
+
+
 ### ssh 别名登陆
 
 第一步：在 `~/.ssh/config` 目录创建别名

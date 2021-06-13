@@ -28,6 +28,37 @@
 *  [python 学习笔记](python.md)
 
 
+## 快捷笔记
+
+
+### ssh 别名登陆
+
+第一步：在 `~/.ssh/config` 目录创建别名
+
+大概如下
+
+```
+Host one
+    HostName 192.168.0.1
+    Port 22
+    User tiankonguse
+    ServerAliveInterval 10
+    ControlMaster auto
+    IdentityFile ~/.ssh/id_rsa_tiankonguse
+
+Host two
+    HostName 192.168.0.2
+    Port 22
+    User tiankonguse
+    ServerAliveInterval 10
+    ControlMaster auto
+    IdentityFile ~/.ssh/id_rsa_tiankonguse
+```
+
+登陆命令：`ssh one`
+
+
+
 ## 实战
 
 

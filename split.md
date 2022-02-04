@@ -24,3 +24,11 @@ tiankonguse@tiankonguse:~$ ll test*
 -rw-rw-r-- 1 tiankonguse tiankonguse 1405  4月 17 02:29 test.txt
 ```
 
+```
+split -l 20000 -d 2071.txt 2071_
+
+for f in $(ls -1 ./data2/2071_*) 
+do
+    ./batch_send_version_ex.sh $f & 
+done
+```
